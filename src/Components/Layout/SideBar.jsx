@@ -10,7 +10,7 @@ export const SideBar = () => {
       <div className="flex flex-col">
         <div className="my-4  p-2 font-bold flex items-center">
           <GoHomeFill className="mr-2" />
-          <Link to="/dashboard/home">Home</Link>
+          <Link to="/dashboard">Home</Link>
         </div>
         <div className="my-4  p-2 font-bold flex items-center">
           <TbReportSearch className="mr-2" />

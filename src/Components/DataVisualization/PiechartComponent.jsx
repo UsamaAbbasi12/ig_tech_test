@@ -26,7 +26,7 @@ export const PiechartComponent = () => {
   const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042", "#AF19FF"];
   return (
     <div>
-      <div className="text-[50px] text-center">Quantity by SKU</div>
+      <div className="text-[50px] text-center">Orders By Region</div>
       <div>
         <PieChart width={400} height={400}>
           <Pie
