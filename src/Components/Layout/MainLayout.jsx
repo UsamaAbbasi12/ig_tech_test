@@ -5,14 +5,14 @@ import { Outlet } from "react-router";
 export const MainLayout = () => {
   return (
     <div className="dashboard-layout">
-      <div>
+      <div className="w-100 border p-5">
         <Header />
       </div>
-      <div>
-        <div>
+      <div className="flex">
+        <div className="w-56 min-h-screen border ">
           <SideBar />
         </div>
-        <div>
+        <div className="flex-1 border p-4">
           <Outlet />
         </div>
       </div>
