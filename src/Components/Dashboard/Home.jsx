@@ -9,7 +9,7 @@ import { PiechartComponent } from "../DataVisualization/PiechartComponent";
 function Home() {
   return (
     <div>
-      <div className="flex gap-3">
+      <div className="flex gap-3 flex-wrap">
         <Card title="Active Orders" icon={<FaShoppingBag />} value={50} />
         <Card
           title="Monthly Revenue"
@@ -20,7 +20,7 @@ function Home() {
         <Card title="Completed Orders" icon={<FaTruck />} value={150} />
         <Card title="Canceled Orders" icon={<FcCancel />} value={15} />
       </div>
-      <div className="mt-12 flex">
+      <div className="mt-12 flex sm:flex-col md:flex-row flex-wrap">
         <div className="border sm:w-[100%] md:w-[50%] p-5">
           <Chart />
         </div>
