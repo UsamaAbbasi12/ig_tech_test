@@ -6,11 +6,13 @@ import { Register } from "./Components/Auth/Register";
 import Home from "./Components/Dashboard/Home";
 import Settings from "./Components/Dashboard/Settings";
 import Reports from "./Components/Dashboard/Reports";
+import VerifyEmail from "./Components/pages/VerifyEmail";
 function App() {
   return (
     <>
       <Routes>
         <Route path="/" element={<Login />} />
+        <Route path="/emailverify/:token" element={<VerifyEmail />} />
         <Route path="/register" element={<Register />} />
         <Route path="dashboard" element={<MainLayout />}>
           <Route element={<Home />} index />
