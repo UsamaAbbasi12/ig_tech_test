@@ -5,13 +5,14 @@ import "./index.css";
 import store from "./store.js";
 import { Provider } from "react-redux";
 import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { BrowserRouter as Router } from "react-router-dom";
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <Provider store={store}>
       <ToastContainer
         position="top-right"
-        autoClose={1500}
+        autoClose={3000}
         hideProgressBar={true}
         newestOnTop={false}
         closeOnClick

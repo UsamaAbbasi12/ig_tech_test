@@ -2,25 +2,35 @@ import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { Link } from "react-router-dom";
+import { login } from "../../slices/auth/auth-slice";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 export const Login = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const validationSchema = Yup.object().shape({
     email: Yup.string().email("Invalid email address").required("Required"),
     password: Yup.string().required("Required"),
   });
 
-  // Initial form values
   const initialValues = {
     email: "",
     password: "",
   };
 
-  // Form submission handler
   const onSubmit = (values, { setSubmitting }) => {
-    // Simulate logging in
-    setTimeout(() => {
-      alert(JSON.stringify(values, null, 2));
-      setSubmitting(false);
-    }, 400);
+    dispatch(login(values))
+      .unwrap()
+      .then((res) => {
+        if (res.user) {
+          navigate("/dashboard");
+        }
+
+        setSubmitting(false);
+      })
+      .catch((err) => {
+        setSubmitting(false);
+      });
   };
   return (
     <div className="h-[100vh] flex justify-center flex-col items-center">

@@ -11,8 +11,7 @@ const register = (username, email, password) => {
       password,
     })
     .then((response) => {
-      console.log("Response:", response);
-      if (response.data?.result?.token) {
+      if (response.data?.result) {
         toast.success(response.data.message);
         localStorage.setItem("user", JSON.stringify(response.data.result));
       }
@@ -22,14 +21,13 @@ const register = (username, email, password) => {
 
 const login = (email, password) => {
   return axios
-    .post(process.env.BACKEND_API_URL + "api/login_user", {
+    .post("http://localhost:8000/" + "auth/api/login", {
       email,
       password,
     })
     .then((response) => {
       if (response.data?.result) {
         localStorage.setItem("user", JSON.stringify(response.data.result));
-        console.log("User logged in:", response.data.result); // Log the user information
       }
 
       return response.data;

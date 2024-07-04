@@ -2,7 +2,10 @@ import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { Link } from "react-router-dom";
+import { register } from "../../slices/auth/auth-slice";
+import { useDispatch } from "react-redux";
 export const Register = () => {
+  const dispatch = useDispatch();
   const validationSchema = Yup.object().shape({
     email: Yup.string().email("Invalid email address").required("Required"),
     password: Yup.string().required("Required"),
@@ -12,7 +15,6 @@ export const Register = () => {
       .required("Required"),
   });
 
-  // Initial form values
   const initialValues = {
     email: "",
     password: "",
@@ -20,13 +22,19 @@ export const Register = () => {
     confirmPassword: "",
   };
 
-  // Form submission handler
-  const onSubmit = (values, { setSubmitting }) => {
-    // Simulate logging in
-    setTimeout(() => {
-      alert(JSON.stringify(values, null, 2));
-      setSubmitting(false);
-    }, 400);
+  const handleSignup = (values, { setSubmitting }) => {
+    dispatch(register(values))
+      .unwrap()
+      .then((res) => {
+        setSubmitting(false);
+        console.log(res);
+        if (res.status === 201) {
+          toast.success(res.message);
+        }
+      })
+      .catch((err) => {
+        setSubmitting(false);
+      });
   };
   return (
     <div className="h-[100vh] flex justify-center flex-col items-center">
@@ -37,7 +45,7 @@ export const Register = () => {
         <Formik
           initialValues={initialValues}
           validationSchema={validationSchema}
-          onSubmit={onSubmit}
+          onSubmit={handleSignup}
         >
           {({ isSubmitting }) => (
             <Form className="w-[900px] border p-16 flex flex-col justify-center items-center rounded-xl shadow-xl">

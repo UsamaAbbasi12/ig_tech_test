@@ -12,9 +12,11 @@ const VerifyEmail = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8000/user_portal/api/email-verify/${token}`)
+      .get(`http://localhost:8000/auth/api/email_verify/${token}`)
       .then((res) => {
-        if (res.data.status === 200) {
+        console.log(res);
+        if (res.data.result) {
+          toast.success("Email Verified Successfully");
           setEmailVirified(true);
           setTimeout(() => {
             navigate("/");

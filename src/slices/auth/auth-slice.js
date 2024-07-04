@@ -9,7 +9,7 @@ const logoutChannel = new BroadcastChannel("logout");
 export const logoutAllTabs = () => {
   logoutChannel.onmessage = () => {
     logoutChannel.close();
-    AuthService.logout();
+    authService.logout();
   };
 };
 
@@ -21,11 +21,24 @@ const user =
 export const register = createAsyncThunk(
   "auth/register",
   async ({ username, email, password }, thunkAPI) => {
+    console.log(username);
     try {
+      console.log(username, email, password);
       const response = await authService.register(username, email, password);
-
+      console.log(response);
+      // if (response.data.message) {
+      //   toast.success((response.data.message).charAt(0).toUpperCase() + data.message.slice(1).toLowerCase());
+      // }
+      // // console.log(data);
+      // thunkAPI.dispatch(setMessage(response.data.message));
       return thunkAPI.fulfillWithValue(response);
     } catch (error) {
+      console.log(error.response.data);
+
+      console.log("ERR: ", error.response);
+      console.log("name: ", username);
+      console.log("email: ", email);
+      console.log("password: ", password);
       const message = error?.response?.data?.message;
 
       toast.error(error?.response?.data);
@@ -48,14 +61,14 @@ export const login = createAsyncThunk(
   "auth/login",
   async ({ email, password }, thunkAPI) => {
     try {
-      const data = await AuthService.login(email, password);
-      console.log(data);
-      if (data?.error) {
+      const data = await authService.login(email, password);
+
+      if (data?.error || data?.status === 400) {
         toast.error(
           data.message.charAt(0).toUpperCase() +
             data.message.slice(1).toLowerCase()
         );
-      } else if (data?.message) {
+      } else if (data?.message && data?.status === 200) {
         toast.success(
           data.message.charAt(0).toUpperCase() +
             data.message.slice(1).toLowerCase()
@@ -88,7 +101,7 @@ export const login = createAsyncThunk(
 export const logout = createAsyncThunk("auth/logout", () => {
   logoutChannel.postMessage("Logout");
   logoutAllTabs();
-  AuthService.logout();
+  authService.logout();
 });
 
 const initialState = user
